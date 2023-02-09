@@ -1,22 +1,99 @@
-import React from 'react';
-import "./contact.css"
+import React, { useRef } from "react";
+import emailjs from "@emailjs/browser";
+import styled from "styled-components";
+
+// npm i @emailjs/browser
+
 const Contact = () => {
- return(
-    <div className="contact">
-        <form className='contact-form'>
-        <h1> Contact us</h1>
-        <label> Name</label>
-        <input type= "text" name='name'/>
-        <label> Email</label>
-        <input type= "text" name='email'/>
-        <hr/>
-        <label> Message</label>
-        <textarea name='message' rows={4}></textarea>
-        <hr/>
-        <input type='Submit' value='send' />
-        </form>  
-    </div>
- )
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "replace with service id",
+        "replace with template id",
+        form.current,
+        "replace with user id"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          console.log("message sent");
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
+
+  return (
+    <StyledContactForm>
+      <form ref={form} onSubmit={sendEmail}>
+        <label>Name</label>
+        <input type="text" name="user_name" />
+        <label>Email</label>
+        <input type="email" name="user_email" />
+        <label>Message</label>
+        <textarea name="message" />
+        <input type="submit" value="Send" />
+      </form>
+    </StyledContactForm>
+  );
 };
 
 export default Contact;
+
+// Styles
+const StyledContactForm = styled.div`
+  width: 400px;
+  form {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+    font-size: 16px;
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 800px;
+    padding: 50px;
+    input {
+      width: 100%;
+      height: 35px;
+      padding: 7px;
+      outline: none;
+      border-radius: 5px;
+      border: 1px solid rgb(220, 220, 220);
+      &:focus {
+        border: 2px solid rgba(0, 206, 158, 1);
+      }
+    }
+    textarea {
+      max-width: 100%;
+      min-width: 100%;
+      width: 100%;
+      max-height: 100px;
+      min-height: 100px;
+      padding: 7px;
+      outline: none;
+      border-radius: 5px;
+      border: 1px solid rgb(220, 220, 220);
+      &:focus {
+        border: 2px solid rgba(0, 206, 158, 1);
+      }
+    }
+    label {
+      margin-top: 1rem;
+    }
+    input[type="submit"] {
+      margin-top: 2rem;
+      cursor: pointer;
+      background-image: linear-gradient(79deg, #7439db, #C66FBC 48%, #F7944D);
+      color: white;
+      border: none;
+    }
+  }
+`;

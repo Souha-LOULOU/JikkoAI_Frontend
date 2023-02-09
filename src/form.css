@@ -12,10 +12,34 @@
     background-position: center;
   }
   
+  .alert {
+    padding: 20px;
+    background-color: #59ed9c;
+    color: white;
+    position: absolute;
+    left: 15%;
+    transform: translatex(-50%);
+  }
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
+
   .register-form{
       background-color: white;
       padding: 0px 110px;
       border-radius: 10px;
+      background-image: linear-gradient(79deg, #9d71e8, #ecafe5 48%, #ffcaa4);
   }
   
   .register-form h1{

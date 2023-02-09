@@ -1,0 +1,148 @@
+.Upload {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 100vh;
+  background: rgb(30, 36, 39);
+  background: radial-gradient(
+    circle,
+    rgb(53, 44, 70) 10%,
+    rgb(10, 11, 11) 100%
+  );
+}
+.Upload .home1-container {
+  width: 100%;
+  top:0;
+  position: fixed;
+  display: flex;
+  min-height: 10%;
+  background-color: #232222;
+}
+.Upload .progress-bar {
+  width: 400px;
+  height: 15px;
+  background-color: rgb(197, 185, 185);
+  margin-bottom: 50px;
+}
+.Upload .progress-bar div {
+  width: 25%;
+  height: 100%;
+  background-color: rgb(55, 168, 85)
+}
+.Upload .card {
+  width: 400px;
+  background-color: white;
+  border: 1px solid #333;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.Upload.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+  gap: 0.25em;
+}
+.Upload .form-group:last-child {
+  margin: 0;
+}
+.Upload .form-group > label {
+  font-weight: bold;
+  font-size: 0.8em;
+  color: #333;
+}
+.Upload .form-group > input {
+  border: 1px solid #333;
+  border-radius: 0.25em;
+  font-size: 1rem;
+  padding: 0.25em;
+}
+.step-title {
+  margin: 0;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  text-align: center;
+}
+.Upload input {
+  border: 2px solid rgb(98, 0, 255);
+  border-radius: 5px;
+  height: 35px;
+  display: block;
+  margin-bottom: 1rem;
+}
+.Upload .button-area {
+  display: flex;
+  align-content: space-between;
+}
+.Upload button {
+  background-color: #485770;
+  border: none;
+  color: white;
+  padding: 0.8rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.Upload button:hover{
+  opacity: 0.7;
+  transform: scale(0.9);
+  transition-duration: 0.5s;
+  cursor: pointer;
+  background: rgb(178, 163, 254);
+}
+textarea {
+  height: 5rem;
+}
+.home1-text3 {
+  text-align:center;
+  color: #646479;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+}
+.home1-text4 {
+  color: #1d1d1e;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: bold;
+}
+.home1-text5 {
+  text-align:center;
+  color: #3f3538;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+}
+.loader-container {
+  width: 400px;
+  height: 160px;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.834)
+      url("https://media.giphy.com/media/8agqybiK5LW8qrG3vJ/giphy.gif") center
+      no-repeat;
+  z-index: 1;
+}
+.spinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid;
+  border-color: #3d5af1 transparent #3d5af1 transparent;
+  border-radius: 50%;
+  animation: spin-anim 1.2s linear infinite;
+}
+
+@keyframes spin-anim {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}

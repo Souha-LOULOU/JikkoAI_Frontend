@@ -1,19 +1,19 @@
 import React from 'react';
 import { useState } from "react";
-import { useForm } from 'react-hook-form'
-import "./form.css"
-import FormInput from './FormInput';
-import { Link } from 'react-router-dom';
-import {Alert } from 'react-bootstrap'
-
+import "./formEdit.css"
+import { useAuth ,logout} from './auth'
+import Login from './Login'
+import FormInputEdit from './FormInputEdit';
+import {useForm} from 'react-hook-form'
+import {useHistory} from 'react-router-dom'
 const API = process.env.REACT_APP_API;
 
-const Form = () => {
+const LoggedInEdit= () => {
+  let token=localStorage.getItem('REACT_TOKEN_AUTH_KEY')
+  const {reset,formState:{errors}}=useForm()
 
-    const {reset } = useForm();
-    const [show,setShow]=useState(false)
-
-    const [values, setValues] = useState({
+  const history=useHistory()
+      const [values, setValues] = useState({
         companyname: "",
         commercialname: "",
         creationdate: "",
@@ -23,7 +23,6 @@ const Form = () => {
         username: "",
         email: "",
         password: "",
-        confirmPassword: "",
       });
     
       const inputs = [
@@ -100,43 +99,23 @@ const Form = () => {
           pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
           required: true,
         },
-        {
-          id: 10,
-          name: "confirmPassword",
-          type: "password",
-          placeholder: "Confirm Password",
-          errorMessage: "Passwords don't match!",
-          label: "Confirm Password",
-          pattern: values.password,
-          required: true,
-        },
       ];
     
-      const handleSubmit = async (e) => {
+      const handleSubmit = async(e) => {
         e.preventDefault();
-        const res = await fetch(`${API}/clients`, {
-          method: "POST",
+        const res = await fetch(`${API}/update`, {
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            'Authorization':`Bearer ${JSON.parse(token)}`
           },
           body: JSON.stringify({
             ...values
           }),
         });
-        setShow(true)
         await res.json();
-        setValues({
-          companyname: "",
-          commercialname: "",
-          creationdate: "",
-          producttype: "",
-          country: "",
-          physicaladdress: "",
-          username: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-        });
+        reset()
+        history.push('/profile')
       };
     
       const onChange = (e) => {
@@ -144,34 +123,43 @@ const Form = () => {
       };
     
       return (
+        <>
         <div className="form">
-        <div className='alert'>
-           {show?
-               <>
-                <p>Click on the "x" symbol to close the alert message.</p>
-                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                <strong>Sucess!</strong> your account was successfully created
-                <h1></h1>
-                </>
-                :
-                <h1></h1>
-               }
-          </div>
-          <form className="register-form" onSubmit={handleSubmit}>
-            <h1>Register</h1>
+          <form className="editprofile-form" onSubmit={handleSubmit}>
+            <h1>Edit Profile</h1>
             {inputs.map((input) => (
-              <FormInput
+              <FormInputEdit
                 key={input.id}
                 {...input}
                 value={values[input.name]}
                 onChange={onChange}
               />
             ))}
-            <button >Submit</button>
-            <small>Already have an account?<Link to="/login"> Log In  </Link></small>
+            <button>Submit</button>
           </form>
         </div>
+        </>
       );
+
+}
+
+const LoggedOutEdit = () => {
+  return (
+      <>
+  <div>You must be connected to enter this page </div>
+  <Login></Login>
+  
+
+      </>
+  )
+}
+const FormEdit = () => {
+  const [logged] = useAuth();
+  return (
+    <div>
+            {logged ? <LoggedInEdit /> : <LoggedOutEdit />}
+        </div>
+  )
     };
 
-export default Form;
+export default FormEdit;
